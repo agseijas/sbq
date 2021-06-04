@@ -1,28 +1,24 @@
 package com.mk.hx.sbqmodule;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 import java.util.function.Predicate;
 
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.system.OutputCaptureRule;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(OutputCaptureExtension.class)
 @SpringBootTest
 public class _2_WithInnerClass_TEST_Config {
 
-	@ClassRule
-	public static final OutputCaptureRule output = new OutputCaptureRule();
-
 	@Test
-	public void loadsOnlyInnerClassApp() {
+	public void loadsOnlyInnerClassApp(CapturedOutput output) {
 		long loadedApps = output.getOut().lines()
 				.filter(contains("Scanned class : ")).count();
 
